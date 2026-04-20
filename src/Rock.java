@@ -4,7 +4,7 @@ public class Rock {
     Rock(){}
 
     //methods
-    void moveRock(){}
+    public void moveRock(){}
 
     void rockAttack(){}
 }

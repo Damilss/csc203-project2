@@ -4,7 +4,7 @@ public class Scissors {
     Scissors(){}
 
     //methods
-    void moveScissors(){}
+    public void moveScissors(){}
 
     void scissorAttack(){}
 }

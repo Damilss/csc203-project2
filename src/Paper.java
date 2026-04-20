@@ -4,8 +4,8 @@ public class Paper {
     Paper(){}
 
     //methods
-    void movePaper(){}
+    public void movePaper(){}
 
     void paperAttack(){}
-    
+
 }
