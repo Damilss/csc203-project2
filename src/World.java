@@ -1,10 +1,26 @@
+
 public class World {
+    
+    private final int columns; 
+    private final int rows;
+    private final String[][] map;
+    private int entityCount;
+
+
 
     //constructor
-    World(){}
+    World(int columns, int rows){
+        this.columns = columns;
+        this.rows = rows;
+        this.map = new String[this.rows][this.columns];
+    }
+
+    
 
     //methods
-    void removeEntity(){}
+    void removeEntity(int idx1, int idx2, World world){
+
+    }
 
     void playRound(){}
 
