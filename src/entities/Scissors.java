@@ -1,7 +1,12 @@
+package entities;
+
 public class Scissors {
+    Point position;
 
     //constructors
-    Scissors(){}
+    public Scissors(Point point){
+        this.position = point; 
+    }
 
     //methods
     public void moveScissors(){}
