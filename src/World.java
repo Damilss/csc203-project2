@@ -13,10 +13,11 @@ public class World {
     private int entityCount;
 
     //constructor
-    World(int columns, int rows){
+    World(int columns, int rows, int entityCount){
         this.columns = columns;
         this.rows = rows;
         this.map = new String[this.rows][this.columns];
+        this.entityCount = entityCount;
         this.initEntities();
     }
 
@@ -45,7 +46,7 @@ public class World {
         switch(entityType){
             case "R":
                 this.map[rowIdx][columnIdx] = "R";
-                //insert class and point update
+
             case "P":
                 this.map[rowIdx][columnIdx] = "P";
                 //insert class and point update
