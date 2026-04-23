@@ -27,3 +27,7 @@ Questions that arise:
 
 - ALSO remember, when initializing the map, the last index of the rows and columns are - 1 to account for 0-based indexing. So if a user wanted a row length that would be 7, the highest number index would be 0. 
 
+**Self Note:** When configuring the world.addEntity(); method, Im coming to the realization that this implementation of the entities really isn't needed. You can simply mutate the `String[][] map` that is given rather than having classes for each rock, paper, and scissor. I don't understand why. It makes it a lot more difficult to implement, but an asignment is an assignment. 
+
+Right now i'm figuring out that implementation. But I will come back to it later and finish it.
+
