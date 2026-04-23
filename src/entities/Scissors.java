@@ -9,7 +9,7 @@ public class Scissors {
     }
 
     //methods
-    public void moveScissors(){}
+    static public void moveScissors(){}
 
     void scissorAttack(){}
 }

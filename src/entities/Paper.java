@@ -1,13 +1,19 @@
 package entities;
 
 public class Paper {
+    public Point position;
+    private int nextPaperID = 0;
+    private int paperCount = 0;
+    
 
     //construtor
-    Paper(){}
+    Paper(Point point){
+        this.position = point; 
+    }
 
     //methods
-    public void movePaper(){}
+    static public void movePaper(){}
 
-    void paperAttack(){}
+    public void paperAttack(){}
 
 }

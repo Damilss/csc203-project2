@@ -1,12 +1,15 @@
 package entities;
 
 public class Rock {
+    Point position;
 
     //constructor
-    Rock(){}
+    Rock(Point point){
+        this.position = point;
+    }
 
     //methods
-    public void moveRock(){}
+    static public void moveRock(){}
 
     void rockAttack(){}
 }
