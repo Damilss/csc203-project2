@@ -45,10 +45,13 @@ public class World {
         switch(entityType){
             case "R":
                 this.map[rowIdx][columnIdx] = "R";
+                //insert class and point update
             case "P":
                 this.map[rowIdx][columnIdx] = "P";
+                //insert class and point update
             case "S":
                 this.map[rowIdx][columnIdx] = "S";
+                //insert class and point update
             default: 
                 throw new InputMismatchException(
                     "addEntity arg entityType needs to be R, P or S. "
@@ -62,15 +65,15 @@ public class World {
 
     }
 
-    void removeEntity(int rowIdx, int ColumnIdx){
-        if (this.map[rowIdx][ColumnIdx] == null){
+    void removeEntity(int rowIdx, int columnIdx){        
+        if (this.map[rowIdx][columnIdx] == null){
            throw new NullPointerException(
-            
+            //insert some text here, I will do it
         );
         }
-        this.map[rowIdx][ColumnIdx] = null;
+        this.map[rowIdx][columnIdx] = null;
     }
-
+    //not finished
     void playRound(){
         Rock.moveRock();
         Paper.movePaper();
