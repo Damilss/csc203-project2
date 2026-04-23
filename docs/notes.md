@@ -25,3 +25,5 @@ Questions that arise:
 - Java rule reminder: classes in a named package cannot import classes from the default package, so `import Point;` was invalid.
 - `Point.java` was moved from `src/Point.java` to `src/entities/Point.java` to keep package structure consistent.
 
+- ALSO remember, when initializing the map, the last index of the rows and columns are - 1 to account for 0-based indexing. So if a user wanted a row length that would be 7, the highest number index would be 0. 
+
