@@ -50,7 +50,10 @@ public class Main {
             }
         }
 
-        //beginning game! this might cause issues lol so keep eye on countdown 
+        /* beginning game! this might cause issues lol so keep eye on it if they
+        * are issues  in the future, or you are testing, feel free to comment 
+        * this out for testing purposes. 
+        */ 
         for (int i= 0;  i < 3;  i++){
             int timer= 3-i;
             if (timer == 3){
