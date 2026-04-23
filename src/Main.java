@@ -8,12 +8,14 @@ import java.util.concurrent.TimeUnit;
 */
 
 public class Main {
+
+    public static final String INVALID_INTEGER = ("That is not a valid integer.");
     public static void main(String[] args) throws InterruptedException {
 
         /*IDE suggests that we should use try-with scanner, not worth the trouble
         * keep it the way it is and just close at the end of Main.main()
         */
-        final String INVALID_INTEGER = ("That is not a valid integer.");
+        
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Rock Paper Scissors");
         System.out.println("How big would you like your map?");
@@ -54,17 +56,27 @@ public class Main {
             }
         }
 
-        //exception handdling for integer
+        //exception handdling for number of entities
         while(!entityFlag){
+            System.out.println("""
+                    Please note that the number of objects cannot be larger than 1/2 of
+                    the product of your rows and columns multiplied. Individual objects 
+                    for this verision, like Rock, Paper and Scissors are automatically 
+                    chosen by the program.\n
+                    """);
             System.out.print("How many different objects would you like?: ");
             String input3 = scanner.nextLine().trim();
 
             try {
                 entities = Integer.parseInt(input3);
+
+                if (entities > (rows*columns)/2){
+                    throw new NumberFormatException(INVALID_INTEGER);
+                }
                 entityFlag = true;
             } catch (NumberFormatException e) {
                 System.out.println(INVALID_INTEGER);
-            }   
+            }
         }
 
         /* beginning game! this might cause issues lol so keep eye on it if they
@@ -86,6 +98,8 @@ public class Main {
 
         //NEW WORLD
         World world1 = new World(rows, columns, entities);
+
+
 
         /* NEXT STEPS: Implement play round until last entity is left or two of the same
         * kind are left, then end program. 
