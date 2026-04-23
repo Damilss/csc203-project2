@@ -1,31 +1,81 @@
+import entities.Paper;
+import entities.Rock;
+import entities.Scissors;
+import java.util.InputMismatchException;
+import java.util.Random;
 
 public class World {
     
     private final int columns; 
     private final int rows;
     private final String[][] map;
-    private static int entityCount;
+    private Random rng;
+    private int entityCount;
 
     //constructor
     World(int columns, int rows){
         this.columns = columns;
         this.rows = rows;
         this.map = new String[this.rows][this.columns];
-        entityCount++;
+        this.initEntities();
+    }
+
+    /* Purpose: To initialize entities at a random place within the map.
+    takes no arguments and sets mutates the map in order to prepare the game */
+    private void initEntities(){
+
+        //no more than one third of space is filled with entities 
+        this.entityCount = rng.nextInt((this.columns * this.rows)/2);
+
+
+        for (int i = 0; i < this.entityCount;i++){
+            //CONTINUE HERE v
+            //Add entities at random places
+            //Making sure they don't overlap.
+        }
+
+    }
+    
+    /* String entityType must be "R", "P", or "S". 
+    * adds entity to object World at specified */
+    void addEntity(String entityType, int rowIdx, int columnIdx){
+        entityType = entityType.toUpperCase();
+
+        //inputMisMatchException
+        switch(entityType){
+            case "R":
+                this.map[rowIdx][columnIdx] = "R";
+            case "P":
+                this.map[rowIdx][columnIdx] = "P";
+            case "S":
+                this.map[rowIdx][columnIdx] = "S";
+            default: 
+                throw new InputMismatchException(
+                    "addEntity arg entityType needs to be R, P or S. "
+                );
+            
+        } 
 
         
-    }
-
-    
-
-    //methods
-    void addEntity(){}
-
-    void removeEntity(int idx1, int idx2, World world){
+        
+        
 
     }
 
-    void playRound(){}
+    void removeEntity(int rowIdx, int ColumnIdx){
+        if (this.map[rowIdx][ColumnIdx] == null){
+           throw new NullPointerException(
+            
+        );
+        }
+        this.map[rowIdx][ColumnIdx] = null;
+    }
+
+    void playRound(){
+        Rock.moveRock();
+        Paper.movePaper();
+        Scissors.moveScissors();
+    }
 
     void printWorld(){}
 }
