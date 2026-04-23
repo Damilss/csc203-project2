@@ -1,14 +1,23 @@
 package entities;
 
+import java.util.HashMap;
+
 public class Paper {
+    public HashMap <String, Point> positionById = new HashMap<>();
+    public HashMap <Point,String> idByPosition = new HashMap<>();
+
     public Point position;
-    private int nextPaperID = 0;
-    private int paperCount = 0;
+    public String id;
+    public int nextPaperId = 0;
+    public int paperCount = 0;
     
 
     //construtor
-    Paper(Point point){
-        this.position = point; 
+    public Paper(Point point){
+        this.position = point;
+        nextPaperId++;
+        paperCount++;
+        this.id = ("paper"+nextPaperId);
     }
 
     //methods

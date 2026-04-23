@@ -1,15 +1,28 @@
 package entities;
 
+import java.util.HashMap;
+
+
 public class Rock {
-    Point position;
+    HashMap<String, Point> positionById = new HashMap<>();
+    HashMap<Point, String> idByPosition = new HashMap<>();
+
+
+    public Point position;
+    public String id;
+    public static int rockCount = 0;
+    public static int nextRockId = 0;
 
     //constructor
-    Rock(Point point){
+    public Rock(Point point){
         this.position = point;
+        rockCount++;
+        nextRockId++;
+        this.id = ("rock"+nextRockId);
     }
 
     //methods
     static public void moveRock(){}
 
-    void rockAttack(){}
+    public void rockAttack(){}
 }
