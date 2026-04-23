@@ -25,9 +25,15 @@ Questions that arise:
 - Java rule reminder: classes in a named package cannot import classes from the default package, so `import Point;` was invalid.
 - `Point.java` was moved from `src/Point.java` to `src/entities/Point.java` to keep package structure consistent.
 
-- ALSO remember, when initializing the map, the last index of the rows and columns are - 1 to account for 0-based indexing. So if a user wanted a row length that would be 7, the highest number index would be 0. 
+- ALSO remember, when initializing the map, the last index of the rows and columns are - 1 to account for 0-based indexing. So if a user wanted a row length that would be 7, the highest number index would be 6. 
 
 **Self Note:** When configuring the world.addEntity(); method, Im coming to the realization that this implementation of the entities really isn't needed. You can simply mutate the `String[][] map` that is given rather than having classes for each rock, paper, and scissor. I don't understand why. It makes it a lot more difficult to implement, but an asignment is an assignment. 
 
-Right now i'm figuring out that implementation. But I will come back to it later and finish it.
+- Right now i'm figuring out that implementation. But I will come back to it later and finish it.
+
+### 4.23.2026
+
+- Ive decided that I'm going to use HashMaps to keep track of the Rocks, Papers and Scissors. Two of them. One for positionbyID and IDByPosition. This will allow for us to keep track of them in terms of objects, rather than just string in a an and array, which will be in world1.map
+
+- I also learned that the number of objects is specified by the user. So I made those changes. creating an input for the user to put how many objects they want. However there is a limit of 1/2 size of the array, meaning the user can input more than half of the cells with objects. The directions didn't specify that the user chose how many Rock, Paper, and Scissors, So as the programmer, I'm going to make them random. Which means I will have to create a buffer if one type gets too many created. Once we are able to test I will see hwo that goes
 
