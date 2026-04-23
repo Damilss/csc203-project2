@@ -56,5 +56,11 @@ public class Main {
         //NEW WORLD
         World world1 = new World(rows, columns);
 
+        /* NEXT STEPS: Implement play round until last entity is left or two of the same
+        * kind are left, then end program. 
+        *
+        *
+        */
+
     }
 }
