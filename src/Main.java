@@ -51,6 +51,8 @@ public class Main {
             TimeUnit.SECONDS.sleep(1);
         }
 
+        scanner.close();
+
         //NEW WORLD
         World world1 = new World(rows, columns);
 
