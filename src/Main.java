@@ -15,7 +15,6 @@ public class Main {
         /*IDE suggests that we should use try-with scanner, not worth the trouble
         * keep it the way it is and just close at the end of Main.main()
         */
-        
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Rock Paper Scissors");
         System.out.println("How big would you like your map?");
@@ -97,7 +96,7 @@ public class Main {
         scanner.close();
 
         //NEW WORLD
-        World world1 = new World(rows, columns, entities);
+        World world0 = new World(rows, columns, entities);
 
 
 
