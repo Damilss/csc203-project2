@@ -19,13 +19,21 @@ public class Scissors {
         this.id = ("scissor"+nextScissorsId);
         scissorsCount++;
         nextScissorsId++;
+        positionById.put(this.id, this.position);
+        IdByPosition.put(this.position, this.id);
     }
 
     //methods
-    static public void moveScissors(){}
+    //could use lower memory data type like a byte instead of int
+    static public int[] moveScissors(){
+        return
+    }
 
-    public void removeScissors(){
-        
+    static public void removeScissors(int rowIdx, int columnIdx){
+        Point argPoint = new Point (rowIdx, columnIdx);
+        String scissorsId = IdByPosition.get(argPoint);
+        positionById.remove(scissorsId);
+        IdByPosition.remove(argPoint);
         scissorsCount--;
     }
 
