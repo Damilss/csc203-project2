@@ -37,3 +37,9 @@ Questions that arise:
 
 - I also learned that the number of objects is specified by the user. So I made those changes. creating an input for the user to put how many objects they want. However there is a limit of 1/2 size of the array, meaning the user can input more than half of the cells with objects. The directions didn't specify that the user chose how many Rock, Paper, and Scissors, So as the programmer, I'm going to make them random. Which means I will have to create a buffer if one type gets too many created. Once we are able to test I will see hwo that goes
 
+
+## 4.25.2026
+
+Going through and trying to make this build work with what I have to use rather than not being able to cut down makes this implementation really inefficient with memory and its funny having to create so many instances just to find certain spots within the World.map, and having to have all of these classes that are just holding a point and an id. when in reality this is just a row  
+
+    
