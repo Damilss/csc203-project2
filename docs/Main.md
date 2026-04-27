@@ -79,14 +79,17 @@ The `columnsFlag` variable is only set to `true` inside the `try` block, on the 
 The entity count loop adds one extra check:
 
 ```java
-if (entities > (rows * columns) / 2) {
+if (entities < 0 || entities > (rows * columns) / 2) {
     throw new NumberFormatException(INVALID_INTEGER);
 }
 ```
 
-If the user types a valid integer but it is too large (more than half the grid size), the code manually **throws** a `NumberFormatException`. Throwing an exception is how you intentionally trigger the `catch` block. This is an unconventional pattern — normally `NumberFormatException` is reserved for non-integer strings — but it works here because both types of invalid input (not a number at all, and a number that is too large) should produce the same error message and the same behavior: loop again.
+There are two ways an otherwise-valid integer can still be rejected:
 
-The limit of half the grid size is enforced here because placing too many entities would make the `initEntities()` loop in `World` spend a very long time searching for empty cells.
+- **Too small (`entities < 0`):** A negative number is meaningless as an entity count. Without this check, entering `-1` would pass, `initEntities()` would receive `-1`, its `for` loop would never execute (since `0 < -1` is immediately false), and the game would start with zero entities and instantly print "Game Over." — confusing but not a crash.
+- **Too large (`entities > (rows * columns) / 2`):** More than half the grid would make the `initEntities()` loop in `World` spend a very long time searching for empty cells.
+
+If either condition is true, the code manually **throws** a `NumberFormatException`. Throwing an exception is how you intentionally trigger the `catch` block. This is an unconventional pattern — normally `NumberFormatException` is reserved for non-integer strings — but it works here because all types of invalid input should produce the same error message and the same behavior: loop again.
 
 ---
 
@@ -122,7 +125,7 @@ world0.printWorld();
 
 This creates the game world with the dimensions and entity count the user provided, then immediately prints the initial board state. The act of constructing `World` triggers `initEntities()`, which places all entities at random positions.
 
-**Note:** The `World` constructor signature is `World(int columns, int rows, int entityCount)`, but here it is called as `new World(rows, columns, entities)`. The values for rows and columns are passed in reverse order. This means the grid dimensions are swapped compared to what the user typed. The game still runs correctly because the simulation behaves the same horizontally and vertically, but the printed board will be transposed relative to the user's input labels.
+The `World` constructor signature is `World(int rows, int columns, int entityCount)`, matching the order the arguments are passed here.
 
 ---
 
