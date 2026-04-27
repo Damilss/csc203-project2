@@ -21,7 +21,7 @@ public static final String INVALID_INTEGER = "That is not a valid integer.";
 
 This is a **named constant** — a value that is defined in one place and never changes. The keywords do specific things:
 
-- `static` means it belongs to the class, not to any particular object (see `Rock.md` for the full explanation of `static`).
+- `static` means it belongs to the class(class level), not to any particular object (see `Rock.md` for the full explanation of `static`).
 - `final` means once it is assigned, it can never be reassigned (see `World.md` for the full explanation of `final`).
 - Together, `static final` on a `String` field is the standard Java way to declare a constant.
 
