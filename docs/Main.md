@@ -132,36 +132,41 @@ The `World` constructor signature is `World(int rows, int columns, int entityCou
 ## The Game Loop
 
 ```java
-while (true) {
-    int typesRemaining = 0;
-    if (Rock.rockCount > 0)     typesRemaining++;
-    if (Paper.paperCount > 0)   typesRemaining++;
-    if (Scissors.scissorsCount > 0) typesRemaining++;
+int typesRemaining = 0;
+
+do {
+    typesRemaining = 0;
+
+    if (Rock.rockCount > 0)          typesRemaining++;
+    if (Paper.paperCount > 0)        typesRemaining++;
+    if (Scissors.scissorsCount > 0)  typesRemaining++;
 
     if (typesRemaining <= 1) {
         System.out.println("Game Over.");
-        if (Rock.rockCount > 0)     System.out.println("Rock Wins!");
-        if (Paper.paperCount > 0)   System.out.println("Paper Wins!");
+        if (Rock.rockCount > 0)         System.out.println("Rock Wins!");
+        if (Paper.paperCount > 0)       System.out.println("Paper Wins!");
         if (Scissors.scissorsCount > 0) System.out.println("Scissors Wins!");
         break;
     }
 
     world0.playRound();
     world0.printWorld();
-}
+
+} while (typesRemaining > 0);
 ```
 
-The loop runs indefinitely (`while (true)`) but has an exit condition at the top. Each iteration:
+This uses a **`do-while`** loop. The difference from a regular `while` is that the body always runs at least once before the condition is checked — appropriate here because we always want at least one check before deciding the game is over.
 
-1. Counts how many entity types have at least one member still alive (`typesRemaining`).
-2. If one or zero types remain, the game is over: print the winner and **`break`** out of the loop.
-3. Otherwise, advance the simulation one round with `playRound()` and print the updated board.
+Each iteration:
 
-**`break`** immediately exits the nearest enclosing loop. Without it, `while (true)` would run forever.
+1. **Resets `typesRemaining` to `0`** at the top of the loop body. This is required — without the reset, the counter would keep growing each round (adding on top of the previous value) and the end condition would never trigger.
+2. Counts how many entity types have at least one member still alive.
+3. If one or zero types remain, prints the winner and **`break`**s out of the loop.
+4. Otherwise, advances the simulation one round with `playRound()` and prints the updated board.
 
-The game reads the static `rockCount`, `paperCount`, and `scissorsCount` directly from the entity classes — not through `World`. This is possible because those fields are `public static`.
+The condition at the bottom (`while (typesRemaining > 0)`) acts as a safety net for the case where all entities eliminate each other simultaneously and `typesRemaining` reaches `0` — the loop exits naturally without needing `break`. In the normal case the loop exits via `break` before the condition is even evaluated.
 
-The game ends when `typesRemaining <= 1` rather than `== 0`. This handles both the normal case (one type wins and eliminates the others) and the edge case where all entities somehow eliminate each other simultaneously (count reaches 0).
+The game reads `rockCount`, `paperCount`, and `scissorsCount` directly from the entity classes — not through `World`. This is possible because those fields are `public static`.
 
 ---
 
