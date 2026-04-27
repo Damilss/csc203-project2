@@ -17,8 +17,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // addEntity()
         System.out.println("--- Testing addEntity() ---");
@@ -37,8 +40,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // removeEntity()
         System.out.println("--- Testing removeEntity() ---");
@@ -58,8 +64,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // printWorld()
         System.out.println("--- Testing printWorld() ---");
@@ -80,8 +89,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // playRound()
         System.out.println("--- Testing playRound() ---");
@@ -105,8 +117,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // moveRock()
         System.out.println("--- Testing moveRock() ---");
@@ -127,8 +142,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // rockAttack()
         System.out.println("--- Testing rockAttack() ---");
@@ -153,8 +171,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // movePaper()
         System.out.println("--- Testing movePaper() ---");
@@ -175,8 +196,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // paperAttack()
         System.out.println("--- Testing paperAttack() ---");
@@ -201,8 +225,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // moveScissors()
         System.out.println("--- Testing moveScissors() ---");
@@ -223,8 +250,11 @@ public class Tests {
         entities.Scissors.positionById.clear();
         entities.Scissors.IdByPosition.clear();
         entities.Rock.rockCount = 0;
+        entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
+        entities.Paper.nextPaperId = 0;
         entities.Scissors.scissorsCount = 0;
+        entities.Scissors.nextScissorsId = 0;
 
         // scissorAttack()
         System.out.println("--- Testing scissorAttack() ---");
