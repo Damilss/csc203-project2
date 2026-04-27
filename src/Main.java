@@ -46,7 +46,11 @@ public class Main {
 
             try {
                 columns = Integer.parseInt(input);
-                columnsFlag = true;
+                if (columns <= 0) {
+                    System.out.println("Columns must be a positive integer.");
+                } else {
+                    columnsFlag = true;
+                }
             } catch (NumberFormatException e) {
                 System.out.println(INVALID_INTEGER);
             }
@@ -59,7 +63,11 @@ public class Main {
 
             try {
                 rows = Integer.parseInt(input2);
-                rowsFlag = true;
+                if (rows <= 0) {
+                    System.out.println("Rows must be a positive integer.");
+                } else {
+                    rowsFlag = true;
+                }
             } catch (NumberFormatException e) {
                 System.out.println(INVALID_INTEGER);
             }
@@ -79,7 +87,13 @@ public class Main {
             try {
                 entities = Integer.parseInt(input3);
 
-                if (entities > (rows*columns)/2){
+                /* (long) cast prevents int overflow when rows*columns exceeds ~2 billion.
+                 * Without it, a very large rows*columns wraps to a negative number and the
+                 * check silently lets through entity counts that would overflow the grid.
+                 * Java SE 8 docs for numeric promotion:
+                 * https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.6.2
+                 */
+                if (entities < 0 || entities > ((long)rows * columns) / 2){
                     throw new NumberFormatException(INVALID_INTEGER);
                 }
                 entityFlag = true;
