@@ -118,9 +118,12 @@ public class Main {
         World world0 = new World(rows, columns, entities);
         world0.printWorld();
 
+        int typesRemaining;
 
-        while (true) {
-            int typesRemaining = 0;
+        do {
+            typesRemaining = 0;
+
+            // Count the number of entities
             if (Rock.rockCount > 0) typesRemaining++;
             if (Paper.paperCount > 0) typesRemaining++;
             if (Scissors.scissorsCount > 0) typesRemaining++;
@@ -141,12 +144,9 @@ public class Main {
 
             world0.playRound();
             world0.printWorld();
-        }
-        /* NEXT STEPS: Implement play round until last entity is left or two of the same
-        * kind are left, then end program. 
-        *
-        *
-        */
-
+            
+        } while (typesRemaining > 0);    
     }
+
 }
+
