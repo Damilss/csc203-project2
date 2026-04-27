@@ -18,7 +18,6 @@ public class Rock {
 
     public static int rockCount = 0;
     public static int nextRockId = 0;
-
     //constructor
     public Rock(Point point){
         this.position = point;
@@ -35,7 +34,7 @@ public class Rock {
      * Args: none
      * Mutates: static variables
      * Returns: int[] with [row, column] of new position
-     */
+    */
     static public int[] moveRock(){
         return null;
     }
@@ -57,6 +56,6 @@ public class Rock {
      * Args: none
      * Mutates: none
      * Returns: void
-     */
+    */
     public void rockAttack(){}
 }
