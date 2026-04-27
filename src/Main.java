@@ -1,5 +1,16 @@
+import entities.Paper;
+import entities.Rock;
+import entities.Scissors;
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * filename: Main.java
+ * description: entry point for the game, handles user input and starts the world
+ * authors: Roscoe, Emilio
+ * date: april 27, 2026
+ */
 
 /* Note: Remmeber to account for zero based indexing, if the user inputs a column length of 7, the index is 0-6
 *   - I think I dealt with the package handling, but make sure to double check for your IDE. 
@@ -11,7 +22,6 @@ public class Main {
 
     public static final String INVALID_INTEGER = ("That is not a valid integer.");
     public static void main(String[] args) throws InterruptedException {
-
         /*IDE suggests that we should use try-with scanner, not worth the trouble
         * keep it the way it is and just close at the end of Main.main()
         */
@@ -97,9 +107,32 @@ public class Main {
 
         //NEW WORLD
         World world0 = new World(rows, columns, entities);
+        world0.printWorld();
 
 
+        while (true) {
+            int typesRemaining = 0;
+            if (Rock.rockCount > 0) typesRemaining++;
+            if (Paper.paperCount > 0) typesRemaining++;
+            if (Scissors.scissorsCount > 0) typesRemaining++;
 
+            if (typesRemaining <= 1) {
+                System.out.println("Game Over.");
+                if (Rock.rockCount > 0) {
+                    System.out.println("Rock Wins!");
+                }
+                if (Paper.paperCount > 0) {
+                    System.out.println("Paper Wins!");
+                }
+                if (Scissors.scissorsCount > 0) {
+                    System.out.println("Scissors Wins!");
+                }
+                break;
+            }
+
+            world0.playRound();
+            world0.printWorld();
+        }
         /* NEXT STEPS: Implement play round until last entity is left or two of the same
         * kind are left, then end program. 
         *

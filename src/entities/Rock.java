@@ -1,6 +1,14 @@
+/**
+ * filename: Rock.java
+ * description: rock entity that moves around the world and attacks scissors
+ * authors: Roscoe, Emilio
+ * date: april 27, 2026
+ */
+
 package entities;
 
 import java.util.HashMap;
+import java.util.Random;
 
 
 public class Rock {
@@ -18,7 +26,9 @@ public class Rock {
 
     public static int rockCount = 0;
     public static int nextRockId = 0;
-    //constructor
+    //constructor - args are Point point (starting point of the rock)
+//    creates new rock, assigns it to id, and registers it into hashmaps
+
     public Rock(Point point){
         this.position = point;
         rockCount++;
@@ -31,12 +41,52 @@ public class Rock {
     //could use lower memory data type like a byte instead of int
 
     /*
-     * Args: none
-     * Mutates: static variables
-     * Returns: int[] with [row, column] of new position
+     moves all rocks to random neighbor cell every round
+     attacks scissors if target cell contains one
+     takes in String[][] map, int rows and int columns
+     returns void
     */
-    static public int[] moveRock(){
-        return null;
+    static public void moveRock(String[][] map, int rows, int columns){
+        Random rng = new Random();
+        for (String id : new java.util.ArrayList<>(positionById.keySet())) {
+            Point pos = positionById.get(id);
+
+            // list of neighbors
+            int[][] neighbors = {
+                    {pos.x-1, pos.y}, {pos.x+1, pos.y},
+                    {pos.x, pos.y-1}, {pos.x, pos.y+1}
+            };
+
+            java.util.List<int[]> valid = new java.util.ArrayList<>();
+            for(int[] n : neighbors){
+                if(n[0] >= 0 && n[0] < rows && n[1] >= 0 && n[1] < columns){
+                    valid.add(n);
+                }
+            }
+
+            // pick a random valid neighbor
+            int[] target = valid.get(rng.nextInt(valid.size()));
+            int targetRow = target[0];
+            int targetCol = target[1];
+
+            // move if empty
+            if(map[targetRow][targetCol] == null){
+                map[pos.x][pos.y] = null;
+                map[targetRow][targetCol] = "R";
+                positionById.put(id, new Point(targetRow, targetCol));
+                idByPosition.remove(pos);
+                idByPosition.put(new Point(targetRow, targetCol), id);
+            } else if(map[targetRow][targetCol].equals("S")){
+                Scissors.removeScissors(targetRow, targetCol);
+                map[pos.x][pos.y] = null;
+                map[targetRow][targetCol] = "R";
+                positionById.put(id, new Point(targetRow, targetCol));
+                idByPosition.remove(pos);
+                idByPosition.put(new Point(targetRow, targetCol), id);
+            }
+
+
+        }
     }
 
     /* Args integer rowIdx, integer columnIdx
@@ -57,5 +107,9 @@ public class Rock {
      * Mutates: none
      * Returns: void
     */
-    public void rockAttack(){}
+    public void rockAttack(String[][] map, int targetRow, int targetCol){
+        Scissors.removeScissors(targetRow, targetCol);
+        map[targetRow][targetCol] = null;
+    }
+
 }
