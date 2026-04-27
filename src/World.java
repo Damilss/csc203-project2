@@ -19,11 +19,11 @@ public class World {
     private Random rng;
     private int entityCount;
 
-    //constructor - args are columns, rows and entityCount
+    //constructor - args are rows, columns and entityCount
 //    creates the world grid and places entitiies in random order on it
-    public World(int columns, int rows, int entityCount){
-        this.columns = columns;
+    public World(int rows, int columns, int entityCount){
         this.rows = rows;
+        this.columns = columns;
         this.map = new String[this.rows][this.columns];
         this.entityCount = entityCount;
         this.rng = new Random();
@@ -40,37 +40,37 @@ public class World {
         for (int i = 0; i < this.entityCount;i++){
             boolean cellFound = false;
             int rps = rng.nextInt(3);
+            int rowRng = 0;
+            int columnRng = 0;
 
             //making sure the random number generated is an empty cell. 
             while (!cellFound){
-                int rowRng = rng.nextInt(this.rows);
-                int columnRng = rng.nextInt(this.columns);
+                rowRng = rng.nextInt(this.rows);
+                columnRng = rng.nextInt(this.columns);
 
                 if(this.cellisEmpty(rowRng, columnRng)){
                     cellFound = true;
                 }
+            } 
 
             //don't switch to rule case
-                switch(rps){
-                //ROCK
-                case(0):
-                    this.addEntity("R",  rowRng, columnRng);
-                break;
-                //PAPER
-                case(1):
-                    this.addEntity("P", rowRng, columnRng);
-                break;
-                //SCISSORS
-                case(2):
-                    this.addEntity("S", rowRng, columnRng);
-                break;
-                   //default case for invalid input
-                default:
-                    throw new IllegalArgumentException(
-                        Main.INVALID_INTEGER + 
-                        "Invalid input for addEntity() in World.java ln 44"
-                    );
-                }
+            switch(rps){
+
+            //ROCK
+            case(0): this.addEntity("R",  rowRng, columnRng); break;
+
+            //PAPER
+            case(1): this.addEntity("P", rowRng, columnRng); break;
+
+            //SCISSORS
+            case(2): this.addEntity("S", rowRng, columnRng); break; 
+
+            //default case for invalid input
+            default:
+                throw new IllegalArgumentException(
+                    Main.INVALID_INTEGER +
+                    "Invalid rps value in initEntities()"
+                );
             }
         }
 
@@ -98,7 +98,7 @@ public class World {
                 break;
             default:
                 throw new IllegalArgumentException(
-                    "invalid input for addEntity() in World.java ln 75"
+                    "addEntity: entityType must be R, P, or S"
                 );
 
         }
@@ -115,10 +115,9 @@ public class World {
         
         //this will be good for debugging
         if (entity == null){
-           throw new NullPointerException("""
-                 removeEntity args rowIdx and columnIdx has no entity in it\n
-                 line 106 in World.javaf
-                   """);
+           throw new NullPointerException(
+                 "removeEntity: no entity at (" + rowIdx + ", " + columnIdx + ") in World.java"
+           );
         }
             
         //insert some text here, I will do it
@@ -137,13 +136,12 @@ public class World {
                 Scissors.removeScissors(rowIdx, columnIdx);
                 this.map[rowIdx][columnIdx] = null;
                break; 
-            default: 
+            default:
                throw new IllegalArgumentException(
-                "removeEntity arg ln 111 entity must be one of R,P,S"
+                "removeEntity: entity must be one of R, P, S"
                );
         }
-        
-        this.map[rowIdx][columnIdx] = null;
+
         entityCount--;
     }
 
