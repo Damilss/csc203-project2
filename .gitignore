@@ -25,3 +25,6 @@ replay_pid*
 
 #Mac stuff
 .DS_Store
+
+#reviews
+/docs/self
