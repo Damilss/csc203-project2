@@ -80,7 +80,7 @@ public class Main {
                     for this verision, like Rock, Paper and Scissors are automatically 
                     chosen by the program.\n
                     """);
-            System.out.print("How many different ob jects would you like?: ");
+            System.out.print("How many different objects would you like?: ");
             String input3 = scanner.nextLine().trim();
 
             try {
@@ -88,7 +88,7 @@ public class Main {
 
                 /* Throwing exception makes sure that entities within array doesn't exceed one half
                 * of availible cells. */
-                if (entities > (rows*columns)/2){
+                if (entities < 0 || entities > (rows*columns)/2){
                     throw new NumberFormatException(INVALID_INTEGER);
                 }
                 entityFlag = true;
