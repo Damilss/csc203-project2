@@ -88,10 +88,18 @@ public class Paper {
     static public void removePaper(int rowIdx, int columnIdx){
         Point argPoint = new Point(rowIdx, columnIdx);
         String paperId = idByPosition.get(argPoint);
+        /* IllegalStateException - see removeRock() in Rock.java for full explanation.
+         * Short version: used when the program reaches an impossible state, distinct from
+         * bad arguments (IllegalArgumentException) or unexpected nulls (NullPointerException).
+         */
+        if (paperId == null) {
+            throw new IllegalStateException(
+                "removePaper: no paper registered at (" + rowIdx + ", " + columnIdx + ")"
+            );
+        }
         positionById.remove(paperId);
         idByPosition.remove(argPoint);
         paperCount--;
-
     }
 
     /*

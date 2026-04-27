@@ -96,6 +96,17 @@ public class Rock {
     static public void removeRock(int rowIdx, int columnIdx){
         Point argPoint = new Point(rowIdx, columnIdx);
         String rockId = idByPosition.get(argPoint);
+        /* IllegalStateException signals that the program has reached an impossible state —
+         * the caller is asking to remove a rock from a cell that has no rock registered.
+         * This is different from IllegalArgumentException (bad input) or NullPointerException
+         * (unexpected null). Using it here makes the root cause clearer when debugging.
+         * Java SE 8 docs: https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html
+         */
+        if (rockId == null) {
+            throw new IllegalStateException(
+                "removeRock: no rock registered at (" + rowIdx + ", " + columnIdx + ")"
+            );
+        }
         positionById.remove(rockId);
         idByPosition.remove(argPoint);
         rockCount--;

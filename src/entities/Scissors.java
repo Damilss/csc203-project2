@@ -88,6 +88,15 @@ public class Scissors {
     static public void removeScissors(int rowIdx, int columnIdx){
         Point argPoint = new Point (rowIdx, columnIdx);
         String scissorsId = IdByPosition.get(argPoint);
+        /* IllegalStateException - see removeRock() in Rock.java for full explanation.
+         * Short version: used when the program reaches an impossible state, distinct from
+         * bad arguments (IllegalArgumentException) or unexpected nulls (NullPointerException).
+         */
+        if (scissorsId == null) {
+            throw new IllegalStateException(
+                "removeScissors: no scissors registered at (" + rowIdx + ", " + columnIdx + ")"
+            );
+        }
         positionById.remove(scissorsId);
         IdByPosition.remove(argPoint);
         scissorsCount--;
