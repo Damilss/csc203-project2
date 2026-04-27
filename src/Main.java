@@ -3,7 +3,7 @@ import java.util.concurrent.TimeUnit;
 
 /* Note: Remmeber to account for zero based indexing, if the user inputs a column length of 7, the index is 0-6
 *   - I think I dealt with the package handling, but make sure to double check for your IDE. 
-*
+*f
 *
 */
 
@@ -24,7 +24,7 @@ public class Main {
         boolean rowsFlag = false;
         boolean entityFlag = false;
 
-        //initalizing int variables since scanner pulls as string, we need to conver to 4 byte int
+        //initalizing int variables since scanner pulls as string, wfe need to conver to 4 byte int
         int columns= 0; 
         int rows = 0;
         int entities = 0;
