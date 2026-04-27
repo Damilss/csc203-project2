@@ -1,7 +1,6 @@
 import entities.Paper;
 import entities.Rock;
 import entities.Scissors;
-
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -81,19 +80,15 @@ public class Main {
                     for this verision, like Rock, Paper and Scissors are automatically 
                     chosen by the program.\n
                     """);
-            System.out.print("How many different objects would you like?: ");
+            System.out.print("How many different ob jects would you like?: ");
             String input3 = scanner.nextLine().trim();
 
             try {
                 entities = Integer.parseInt(input3);
 
-                /* (long) cast prevents int overflow when rows*columns exceeds ~2 billion.
-                 * Without it, a very large rows*columns wraps to a negative number and the
-                 * check silently lets through entity counts that would overflow the grid.
-                 * Java SE 8 docs for numeric promotion:
-                 * https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.6.2
-                 */
-                if (entities < 0 || entities > ((long)rows * columns) / 2){
+                /* Throwing exception makes sure that entities within array doesn't exceed one half
+                * of availible cells. */
+                if (entities > (rows*columns)/2){
                     throw new NumberFormatException(INVALID_INTEGER);
                 }
                 entityFlag = true;
