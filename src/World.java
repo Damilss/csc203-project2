@@ -80,7 +80,7 @@ public class World {
     * adds entity to object World at specified */
     void addEntity(String entityType, int rowIdx, int columnIdx){
         entityType = entityType.toUpperCase();
-
+        //
         switch(entityType){
             //ROCK
             case("R"):
