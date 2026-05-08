@@ -15,3 +15,5 @@ Professor disagreed with the implemntation of exceptions, and stated that it was
 Almost all of our variables within our classes were public, which is not ideal for object oriented programming principles. Professor stated that we should go through and make sure all variables are private and only accessible through getters and setters. I agree that we should have better implementation of this. 
 
 ## Project 3
+
+### Abstract Classes
