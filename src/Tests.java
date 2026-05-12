@@ -15,7 +15,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -38,7 +38,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -62,7 +62,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -87,7 +87,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -115,7 +115,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -140,7 +140,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -169,7 +169,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -194,7 +194,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -223,7 +223,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
@@ -248,7 +248,7 @@ public class Tests {
         entities.Paper.positionById.clear();
         entities.Paper.idByPosition.clear();
         entities.Scissors.positionById.clear();
-        entities.Scissors.IdByPosition.clear();
+        entities.Scissors.idByPosition.clear();
         entities.Rock.rockCount = 0;
         entities.Rock.nextRockId = 0;
         entities.Paper.paperCount = 0;
