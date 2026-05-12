@@ -35,6 +35,9 @@ public abstract class Entity{
 
     public int getEntityCount(){return entityCount;}
 
-  
+    /* Subclasses define how this entity moves one step on the grid and how it
+    * attacks a neighboring cell. Both operate on the shared visual grid (map). */
+    public abstract void move(String[][] map, int rows, int columns);
 
+    public abstract void attack(String[][] map, int targetRow, int targetCol);
 }
