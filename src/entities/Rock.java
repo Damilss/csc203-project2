@@ -8,7 +8,7 @@
 package entities;
 
 
-public class Rock extends Entity implements Action{
+public class Rock extends Entity{
 
 
     public static int rockCount = 0;
@@ -28,10 +28,8 @@ public class Rock extends Entity implements Action{
     //constructors
     //could use lower memory data type like a byte instead of int
 
-    /*
-     instance move: this rock picks a random neighbor and either steps into it
-     or attacks a Scissors. Required by Action interface.
-    */
+    /* Instance move required by Entity: this rock picks a random neighbor and
+     * either steps into it or attacks a Scissors. */
     @Override
     public void move(String[][] map, int rows, int columns){
         Point pos = getPosition();
@@ -97,14 +95,9 @@ public class Rock extends Entity implements Action{
         rockCount--;
     }
 
-    /* Instance attack required by Action interface. */
+    /* Instance attack required by Entity. */
     @Override
     public void attack(String[][] map, int targetRow, int targetCol){
-        Scissors.removeScissors(targetRow, targetCol);
-        map[targetRow][targetCol] = null;
-    }
-
-    public static void rockAttack(String[][] map, int targetRow, int targetCol){
         Scissors.removeScissors(targetRow, targetCol);
         map[targetRow][targetCol] = null;
     }

@@ -7,7 +7,7 @@
 
 package entities;
 
-public class Scissors extends Entity implements Action{
+public class Scissors extends Entity{
 
     /*
     * This class represents a Scissors entity in the game world
@@ -33,8 +33,8 @@ public class Scissors extends Entity implements Action{
     //methods
     //could use lower memory data type like a byte instead of int
 
-    /* instance move required by Action interface: this scissors picks a random
-     * neighbor and either steps into it or attacks a Paper. */
+    /* Instance move required by Entity: this scissors picks a random neighbor
+     * and either steps into it or attacks a Paper. */
     @Override
     public void move(String[][] map, int rows, int columns){
         Point pos = getPosition();
@@ -98,14 +98,9 @@ public class Scissors extends Entity implements Action{
         scissorsCount--;
     }
 
-    /* Instance attack required by Action interface. */
+    /* Instance attack required by Entity. */
     @Override
     public void attack(String[][] map, int targetRow, int targetCol){
-        Paper.removePaper(targetRow, targetCol);
-        map[targetRow][targetCol] = null;
-    }
-
-    public static void scissorAttack(String[][] map, int targetRow, int targetCol){
         Paper.removePaper(targetRow, targetCol);
         map[targetRow][targetCol] = null;
     }
