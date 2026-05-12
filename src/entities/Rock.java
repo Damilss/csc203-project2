@@ -7,118 +7,104 @@
 
 package entities;
 
-import java.util.HashMap;
-import java.util.Random;
 
+public class Rock extends Entity implements Action{
 
-public class Rock {
-
-    /*
-    * This class represents a Rock entity in the game world
-    * It maintains static HashMaps for tracking positions and IDs of all rocks
-    */
-    public static HashMap<String, Point> positionById = new HashMap<>();
-    public static HashMap<Point, String> idByPosition = new HashMap<>();
-
-
-    public Point position;
-    public String id;
 
     public static int rockCount = 0;
     public static int nextRockId = 0;
+    private static java.util.List<Rock> instances = new java.util.ArrayList<>();
     //constructor - args are Point point (starting point of the rock)
 //    creates new rock, assigns it to id, and registers it into hashmaps
 
     public Rock(Point point){
-        this.position = point;
+        super(point, "rock" + nextRockId);
         rockCount++;
         nextRockId++;
-        this.id = ("rock"+nextRockId);
-        positionById.put(this.id, this.position);
-        idByPosition.put(this.position, this.id);
+        positionById.put(getId(), getPosition());
+        idByPosition.put(getPosition(), getId());
+        instances.add(this);
     }
     //constructors
     //could use lower memory data type like a byte instead of int
 
     /*
-     moves all rocks to random neighbor cell every round
-     attacks scissors if target cell contains one
-     takes in String[][] map, int rows and int columns
-     returns void
+     instance move: this rock picks a random neighbor and either steps into it
+     or attacks a Scissors. Required by Action interface.
     */
-    static public void moveRock(String[][] map, int rows, int columns){
-        Random rng = new Random();
-        for (String id : new java.util.ArrayList<>(positionById.keySet())) {
-            Point pos = positionById.get(id);
+    @Override
+    public void move(String[][] map, int rows, int columns){
+        Point pos = getPosition();
 
-            // list of neighbors
-            int[][] neighbors = {
-                    {pos.x-1, pos.y}, {pos.x+1, pos.y},
-                    {pos.x, pos.y-1}, {pos.x, pos.y+1}
-            };
+        int[][] neighbors = {
+                {pos.x-1, pos.y}, {pos.x+1, pos.y},
+                {pos.x, pos.y-1}, {pos.x, pos.y+1}
+        };
 
-            java.util.List<int[]> valid = new java.util.ArrayList<>();
-            for(int[] n : neighbors){
-                if(n[0] >= 0 && n[0] < rows && n[1] >= 0 && n[1] < columns){
-                    valid.add(n);
-                }
+        java.util.List<int[]> valid = new java.util.ArrayList<>();
+        for(int[] n : neighbors){
+            if(n[0] >= 0 && n[0] < rows && n[1] >= 0 && n[1] < columns){
+                valid.add(n);
             }
+        }
 
-            // pick a random valid neighbor
-            int[] target = valid.get(rng.nextInt(valid.size()));
-            int targetRow = target[0];
-            int targetCol = target[1];
+        int[] target = valid.get(rng.nextInt(valid.size()));
+        int targetRow = target[0];
+        int targetCol = target[1];
 
-            // move if empty
-            if(map[targetRow][targetCol] == null){
-                map[pos.x][pos.y] = null;
-                map[targetRow][targetCol] = "R";
-                positionById.put(id, new Point(targetRow, targetCol));
-                idByPosition.remove(pos);
-                idByPosition.put(new Point(targetRow, targetCol), id);
-            } else if(map[targetRow][targetCol].equals("S")){
-                Scissors.removeScissors(targetRow, targetCol);
-                map[pos.x][pos.y] = null;
-                map[targetRow][targetCol] = "R";
-                positionById.put(id, new Point(targetRow, targetCol));
-                idByPosition.remove(pos);
-                idByPosition.put(new Point(targetRow, targetCol), id);
-            }
+        if(map[targetRow][targetCol] == null){
+            stepInto(map, pos, targetRow, targetCol);
+        } else if(map[targetRow][targetCol].equals("S")){
+            Scissors.removeScissors(targetRow, targetCol);
+            stepInto(map, pos, targetRow, targetCol);
+        }
+    }
 
+    /* Shared logic for moving this rock from its current cell into a target cell.
+    * Updates the visual grid, the static position maps, and the entity's own position. */
+    private void stepInto(String[][] map, Point pos, int targetRow, int targetCol){
+        map[pos.x][pos.y] = null;
+        map[targetRow][targetCol] = "R";
+        Point newPos = new Point(targetRow, targetCol);
+        positionById.put(getId(), newPos);
+        idByPosition.remove(pos);
+        idByPosition.put(newPos, getId());
+        setPosition(newPos);
+    }
 
+    /* World-facing helper: move every rock once. */
+    public static void moveRock(String[][] map, int rows, int columns){
+        for (Rock r : new java.util.ArrayList<>(instances)){
+            if (rockCount == 0) break;
+            r.move(map, rows, columns);
         }
     }
 
     /* Args integer rowIdx, integer columnIdx
-    * mutates class paper and static variables
+    * mutates static variables for Rock
     * returns void
     */
-    static public void removeRock(int rowIdx, int columnIdx){
+    public static void removeRock(int rowIdx, int columnIdx){
         Point argPoint = new Point(rowIdx, columnIdx);
         String rockId = idByPosition.get(argPoint);
-        /* IllegalStateException signals that the program has reached an impossible state —
-         * the caller is asking to remove a rock from a cell that has no rock registered.
-         * This is different from IllegalArgumentException (bad input) or NullPointerException
-         * (unexpected null). Using it here makes the root cause clearer when debugging.
-         * Java SE 8 docs: https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html
-         */
         if (rockId == null) {
-            throw new IllegalStateException(
-                "removeRock: no rock registered at (" + rowIdx + ", " + columnIdx + ")"
-            );
+            System.out.println("removeRock: no rock registered at (" + rowIdx + ", " + columnIdx + ")");
+            return;
         }
         positionById.remove(rockId);
         idByPosition.remove(argPoint);
+        instances.removeIf(r -> rockId.equals(r.getId()));
         rockCount--;
     }
 
+    /* Instance attack required by Action interface. */
+    @Override
+    public void attack(String[][] map, int targetRow, int targetCol){
+        Scissors.removeScissors(targetRow, targetCol);
+        map[targetRow][targetCol] = null;
+    }
 
-    /*
-     * Args: none
-     * Mutates: none
-     * Returns: void
-    */
-    public void rockAttack(String[][] map, int targetRow, int targetCol){
+    public static void rockAttack(String[][] map, int targetRow, int targetCol){
         Scissors.removeScissors(targetRow, targetCol);
         map[targetRow][targetCol] = null;
     }

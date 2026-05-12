@@ -7,107 +7,105 @@
 
 package entities;
 
-import java.util.HashMap;
-import java.util.Random;
-
-public class Scissors {
+public class Scissors extends Entity implements Action{
 
     /*
     * This class represents a Scissors entity in the game world
     * It maintains static HashMaps for tracking positions and IDs of all scissors
     */
-    public static HashMap<String, Point> positionById = new HashMap<>();
-    public static HashMap<Point, String> IdByPosition = new HashMap<>();
 
-    public Point position;
-    public String id;
 
     public static int scissorsCount = 0;
     public static int nextScissorsId = 0;
+    private static java.util.List<Scissors> instances = new java.util.ArrayList<>();
 
 
     //constructors
     public Scissors(Point point){
-        this.position = point;
-        this.id = ("scissor"+nextScissorsId);
+        super(point, "scissor" + nextScissorsId);
         scissorsCount++;
         nextScissorsId++;
-        positionById.put(this.id, this.position);
-        IdByPosition.put(this.position, this.id);
+        positionById.put(getId(), getPosition());
+        idByPosition.put(getPosition(), getId());
+        instances.add(this);
     }
 
     //methods
     //could use lower memory data type like a byte instead of int
-    /*
-     * Args: none
-     * Mutates: static variables
-     * Returns: int[] with [row, column] of new position
-     */
-    static public void moveScissors(String[][] map, int rows, int columns){
-        Random rng = new Random();
-        for(String id : new java.util.ArrayList<>(positionById.keySet())){
-            Point pos = positionById.get(id);
 
-            int[][] neighbors = {
-                    {pos.x-1, pos.y}, {pos.x+1, pos.y},
-                    {pos.x, pos.y-1}, {pos.x, pos.y+1}
-            };
+    /* instance move required by Action interface: this scissors picks a random
+     * neighbor and either steps into it or attacks a Paper. */
+    @Override
+    public void move(String[][] map, int rows, int columns){
+        Point pos = getPosition();
 
-            java.util.List<int[]> valid = new java.util.ArrayList<>();
-            for(int[] n : neighbors){
-                if(n[0] >= 0 && n[0] < rows && n[1] >= 0 && n[1] < columns){
-                    valid.add(n);
-                }
+        int[][] neighbors = {
+                {pos.x-1, pos.y}, {pos.x+1, pos.y},
+                {pos.x, pos.y-1}, {pos.x, pos.y+1}
+        };
+
+        java.util.List<int[]> valid = new java.util.ArrayList<>();
+        for(int[] n : neighbors){
+            if(n[0] >= 0 && n[0] < rows && n[1] >= 0 && n[1] < columns){
+                valid.add(n);
             }
+        }
 
-            int[] target = valid.get(rng.nextInt(valid.size()));
-            int targetRow = target[0];
-            int targetCol = target[1];
+        int[] target = valid.get(rng.nextInt(valid.size()));
+        int targetRow = target[0];
+        int targetCol = target[1];
 
-            if(map[targetRow][targetCol] == null){
-                map[pos.x][pos.y] = null;
-                map[targetRow][targetCol] = "S";
-                positionById.put(id, new Point(targetRow, targetCol));
-                IdByPosition.remove(pos);
-                IdByPosition.put(new Point(targetRow, targetCol), id);
-            } else if(map[targetRow][targetCol].equals("P")){
-                Paper.removePaper(targetRow, targetCol);
-                map[pos.x][pos.y] = null;
-                map[targetRow][targetCol] = "S";
-                positionById.put(id, new Point(targetRow, targetCol));
-                IdByPosition.remove(pos);
-                IdByPosition.put(new Point(targetRow, targetCol), id);
-            }
+        if(map[targetRow][targetCol] == null){
+            stepInto(map, pos, targetRow, targetCol);
+        } else if(map[targetRow][targetCol].equals("P")){
+            Paper.removePaper(targetRow, targetCol);
+            stepInto(map, pos, targetRow, targetCol);
         }
     }
 
-    /* Args integer rowIdx, Integer columndIdx
-    * mutates class paper and static variables
+    private void stepInto(String[][] map, Point pos, int targetRow, int targetCol){
+        map[pos.x][pos.y] = null;
+        map[targetRow][targetCol] = "S";
+        Point newPos = new Point(targetRow, targetCol);
+        positionById.put(getId(), newPos);
+        idByPosition.remove(pos);
+        idByPosition.put(newPos, getId());
+        setPosition(newPos);
+    }
+
+    /* World-facing helper: move every scissors once. */
+    public static void moveScissors(String[][] map, int rows, int columns){
+        for (Scissors s : new java.util.ArrayList<>(instances)){
+            if (scissorsCount == 0) break;
+            s.move(map, rows, columns);
+        }
+    }
+
+    /* Args integer rowIdx, integer columnIdx
+    * mutates static variables for Scissors
     * returns void
     */
-    static public void removeScissors(int rowIdx, int columnIdx){
-        Point argPoint = new Point (rowIdx, columnIdx);
-        String scissorsId = IdByPosition.get(argPoint);
-        /* IllegalStateException - see removeRock() in Rock.java for full explanation.
-         * Short version: used when the program reaches an impossible state, distinct from
-         * bad arguments (IllegalArgumentException) or unexpected nulls (NullPointerException).
-         */
+    public static void removeScissors(int rowIdx, int columnIdx){
+        Point argPoint = new Point(rowIdx, columnIdx);
+        String scissorsId = idByPosition.get(argPoint);
         if (scissorsId == null) {
-            throw new IllegalStateException(
-                "removeScissors: no scissors registered at (" + rowIdx + ", " + columnIdx + ")"
-            );
+            System.out.println("removeScissors: no scissors registered at (" + rowIdx + ", " + columnIdx + ")");
+            return;
         }
         positionById.remove(scissorsId);
-        IdByPosition.remove(argPoint);
+        idByPosition.remove(argPoint);
+        instances.removeIf(s -> scissorsId.equals(s.getId()));
         scissorsCount--;
     }
 
-    /*
-     * Args: none
-     * Mutates: none
-     * Returns: void
-     */
-    public void scissorAttack(String[][] map, int targetRow, int targetCol){
+    /* Instance attack required by Action interface. */
+    @Override
+    public void attack(String[][] map, int targetRow, int targetCol){
+        Paper.removePaper(targetRow, targetCol);
+        map[targetRow][targetCol] = null;
+    }
+
+    public static void scissorAttack(String[][] map, int targetRow, int targetCol){
         Paper.removePaper(targetRow, targetCol);
         map[targetRow][targetCol] = null;
     }
