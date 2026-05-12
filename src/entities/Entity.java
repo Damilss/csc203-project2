@@ -1,40 +1,40 @@
 package entities;
 
+import java.util.HashMap;
+import java.util.Random;
+
 public abstract class Entity{
     /* This class represents a superclass entity
     * for rock, paper, and scissors. 
     *
     *
     */
-    private Point Position; 
+    private Point position; 
     private final String id;
+    protected static int entityCount = 0;
+    protected static final Random rng = new Random();
+
+    //public because we can then just use methods that come with HashMap
+    public static HashMap <String, Point> positionById = new HashMap<>();
+    public static HashMap <Point,String> idByPosition = new HashMap<>();
 
     //constructor
     protected Entity(Point position, String id){
-        this.Position = position;
+        this.position = position;
         this.id = id;
+        entityCount++;
     }
 
     //set methods
-    public void setPosition(Point position){
-        this.Position = position;
-    }
+    public void setPosition(Point position){this.position = position;}
     
     //get methods
-    public Point getPosition(){
-        return this.Position;
-    }
+    public Point getPosition(){return this.position;}
 
-    public String getId(){
-        return this.id;
-    }
+    public String getId(){return this.id;}
 
-    //methods
-    public abstract void move(Point point);
+    public int getEntityCount(){return entityCount;}
 
-    public abstract void remove(Point point);
-
-    public abstract void attack(Point point);
+  
 
 }
-
