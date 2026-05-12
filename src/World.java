@@ -11,12 +11,12 @@ import entities.Rock;
 import entities.Scissors;
 import java.util.Random;
 
-public class World {
+public class World{
     
     private final int columns; 
     private final int rows;
     private final String[][] map;
-    private Random rng;
+    private final Random rng;
     private int entityCount;
 
     //constructor - args are rows, columns and entityCount
@@ -65,12 +65,10 @@ public class World {
             //SCISSORS
             case(2): this.addEntity("S", rowRng, columnRng); break; 
 
-            //default case for invalid input
+            //default case - unreachable since rng.nextInt(3) returns 0/1/2
             default:
-                throw new IllegalArgumentException(
-                    Main.INVALID_INTEGER +
-                    "Invalid rps value in initEntities()"
-                );
+                System.out.println("initEntities: unexpected rps value " + rps);
+                break;
             }
         }
 
@@ -80,48 +78,43 @@ public class World {
     * adds entity to object World at specified */
     void addEntity(String entityType, int rowIdx, int columnIdx){
         entityType = entityType.toUpperCase();
-        //
+        /* Each constructor registers itself in the shared static HashMaps on Entity,
+        * so we just call new for its side effect and mark the visual grid. */
         switch(entityType){
             //ROCK
             case("R"):
-                Rock rock = new Rock(new Point(rowIdx, columnIdx));
+                new Rock(new Point(rowIdx, columnIdx));
                 this.map[rowIdx][columnIdx] = "R";
                 break;
             //PAPER
             case("P"):
-                Paper paper = new Paper(new Point(rowIdx, columnIdx));
+                new Paper(new Point(rowIdx, columnIdx));
                 this.map[rowIdx][columnIdx] = "P";
                 break;
             case("S"):
-                Scissors scissors = new Scissors(new Point(rowIdx, columnIdx));
+                new Scissors(new Point(rowIdx, columnIdx));
                 this.map[rowIdx][columnIdx] = "S";
                 break;
             default:
-                throw new IllegalArgumentException(
-                    "addEntity: entityType must be R, P, or S"
-                );
-
+                System.out.println("addEntity: entityType must be R, P, or S (got " + entityType + ")");
+                break;
         }
     }
     
     
     /* purpose: checks entity in specifiic row and column, then updates it's respective class
     *then updates evrything else. Althought it seems kind of abstract, and since we aren't allowed
-    * to use abstract parent classes yet, this method seems kind of redundant, im going to create it but 
+    * to use abstract parent classes yet, this method seems kind of redundant, im going to create it but
     * but probably avoid using it for now
     */
-    void removeEntity(int rowIdx, int columnIdx){  
+    void removeEntity(int rowIdx, int columnIdx){
         String entity = this.map[rowIdx][columnIdx];
-        
-        //this will be good for debugging
+
         if (entity == null){
-           throw new NullPointerException(
-                 "removeEntity: no entity at (" + rowIdx + ", " + columnIdx + ") in World.java"
-           );
+            System.out.println("removeEntity: no entity at (" + rowIdx + ", " + columnIdx + ")");
+            return;
         }
-            
-        //insert some text here, I will do it
-        //Add switch case to check if, another IDE susggestion, ignore
+
         switch(entity){
             case ("R"):
                 Rock.removeRock(rowIdx, columnIdx);
@@ -131,15 +124,13 @@ public class World {
                 Paper.removePaper(rowIdx, columnIdx);
                 this.map[rowIdx][columnIdx] = null;
                 break;
-
             case ("S"):
                 Scissors.removeScissors(rowIdx, columnIdx);
                 this.map[rowIdx][columnIdx] = null;
-               break; 
+                break;
             default:
-               throw new IllegalArgumentException(
-                "removeEntity: entity must be one of R, P, S"
-               );
+                System.out.println("removeEntity: entity must be one of R, P, S (got " + entity + ")");
+                return;
         }
 
         entityCount--;
