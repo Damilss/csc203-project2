@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 /* Note: Remmeber to account for zero based indexing, if the user inputs a column length of 7, the index is 0-6
 *   - I think I dealt with the package handling, but make sure to double check for your IDE. 
-*f
+*
 *
 */
 
@@ -112,6 +112,7 @@ public class Main {
             TimeUnit.SECONDS.sleep(1);
         }
 
+        //close out scanner
         scanner.close();
 
         //NEW WORLD
